@@ -13,14 +13,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
-/**
- * Site controller
- */
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -49,9 +44,6 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
@@ -65,21 +57,11 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -98,11 +80,6 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -110,44 +87,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
     public function actionSignup()
     {
         $model = new SignupForm();
@@ -164,11 +103,6 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
@@ -187,13 +121,6 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
     public function actionResetPassword($token)
     {
         try {

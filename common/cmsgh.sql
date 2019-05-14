@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3307
--- Время создания: Мар 14 2019 г., 22:07
--- Версия сервера: 5.6.38
--- Версия PHP: 7.2.0
+-- Время создания: Май 14 2019 г., 17:17
+-- Версия сервера: 5.6.37
+-- Версия PHP: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,8 +19,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `adv`
+-- База данных: `cmsgh`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `ImageManager`
+--
+
+CREATE TABLE `ImageManager` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `fileName` varchar(128) NOT NULL,
+  `fileHash` varchar(32) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `createdBy` int(10) UNSIGNED DEFAULT NULL,
+  `modifiedBy` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -39,7 +55,9 @@ CREATE TABLE `migration` (
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m000000_000000_base', 1552419266),
-('m130524_201442_init', 1552419270);
+('m130524_201442_init', 1552419270),
+('m160622_085710_create_ImageManager_table', 1557840186),
+('m170223_113221_addBlameableBehavior', 1557840186);
 
 -- --------------------------------------------------------
 
@@ -114,6 +132,12 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 --
 
 --
+-- Индексы таблицы `ImageManager`
+--
+ALTER TABLE `ImageManager`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `migration`
 --
 ALTER TABLE `migration`
@@ -147,17 +171,20 @@ ALTER TABLE `user_roles`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `ImageManager`
+--
+ALTER TABLE `ImageManager`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
